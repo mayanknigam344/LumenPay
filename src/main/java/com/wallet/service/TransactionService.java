@@ -6,7 +6,6 @@ import com.wallet.model.TransactionType;
 import com.wallet.model.User;
 import com.wallet.model.Wallet;
 import com.wallet.repository.TransactionRepository;
-import com.wallet.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ import java.util.UUID;
 public class TransactionService {
 
     private final TransactionRepository transactionRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     public void initiateTransaction(Transaction transaction) {
         String senderId = transaction.getSenderId();
@@ -28,8 +27,8 @@ public class TransactionService {
         log.info("Initiating transaction: sender={}, recipient={}, amount={}",
                 senderId, recipientId, transaction.getTransactionAmount());
 
-        User sender = userRepository.getUser(senderId);
-        User receiver = userRepository.getUser(recipientId);
+        User sender = userService.getUser(senderId);
+        User receiver = userService.getUser(recipientId);
 
         long transactionAmount = transaction.getTransactionAmount();
 

@@ -18,7 +18,7 @@ public class driver {
 
         var walletService = new WalletService();
         var userService = new UserService(walletService,userRepository);
-        var transactionService = new TransactionService(transactionRepository,userRepository);
+        var transactionService = new TransactionService(transactionRepository,userService);
 
         // users
         var user1  = new User("user-id-1");
